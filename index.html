@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clothing Size Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    input, select, button {
+      margin: 10px;
+      padding: 8px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Clothing Size Converter</h1>
+
+<label>Category:</label>
+<select id="category">
+  <option value="men">Men</option>
+  <option value="women">Women</option>
+</select><br>
+
+<label>Chest (inches):</label>
+<input type="number" id="chest"><br>
+
+<label>Waist (inches):</label>
+<input type="number" id="waist"><br>
+
+<label>Hips (inches):</label>
+<input type="number" id="hips"><br>
+
+<button onclick="convertSize()">Convert Size</button>
+
+<div id="result"></div>
+
+<script>
+function convertSize() {
+  const category = document.getElementById('category').value;
+  const chest = parseFloat(document.getElementById('chest').value);
+
+  const hmMen = [
+    {size: "S", low: 34, high: 36},
+    {size: "M", low: 38, high: 40},
+    {size: "L", low: 42, high: 44},
+    {size: "XL", low: 46, high: 48}
+  ];
+
+  const zaraMen = [
+    {size: "S", low: 35, high: 37},
+    {size: "M", low: 38, high: 40},
+    {size: "L", low: 41, high: 43},
+    {size: "XL", low: 44, high: 46}
+  ];
+
+  const hmWomen = [
+    {size: "S", low: 32, high: 34},
+    {size: "M", low: 36, high: 38},
+    {size: "L", low: 40, high: 42},
+    {size: "XL", low: 44, high: 46}
+  ];
+
+  const zaraWomen = [
+    {size: "S", low: 31, high: 33},
+    {size: "M", low: 34, high: 36},
+    {size: "L", low: 37, high: 39},
+    {size: "XL", low: 40, high: 42}
+  ];
+
+  let hmSize = "Not found";
+  let zaraSize = "Not found";
+
+  if (category === "men") {
+    for (let s of hmMen) if (chest >= s.low && chest <= s.high) hmSize = s.size;
+    for (let s of zaraMen) if (chest >= s.low && chest <= s.high) zaraSize = s.size;
+  } else {
+    for (let s of hmWomen) if (chest >= s.low && chest <= s.high) hmSize = s.size;
+    for (let s of zaraWomen) if (chest >= s.low && chest <= s.high) zaraSize = s.size;
+  }
+
+  document.getElementById('result').innerHTML = `
+    H&M: ${hmSize} <br> Zara: ${zaraSize}
+  `;
+}
+</script>
+
+</body>
+</html>
